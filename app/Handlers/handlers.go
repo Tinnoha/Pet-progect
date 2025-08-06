@@ -199,7 +199,30 @@ func handlPutList(writer http.ResponseWriter, request *http.Request) {
 		fmt.Fprintf(writer, "Данный запрос не поддерживается")
 	}
 }
+func handlDeleteList(w http.ResponseWriter, request *http.Request) {
+	if request.Method == http.MethodDelete {
+		id := request.PathValue("id")
 
+		DB, err := sql.Open("postgres", models.ConnStr)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		defer DB.Close()
+
+		err = DB.Ping()
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		DB.Exec(fmt.Sprintf("delete from polzovately where id = %s", id))
+
+	} else {
+		fmt.Fprintf(w, "Данный метод не поддерживается")
+	}
+}
 func Run() {
 	mux := http.NewServeMux()
 
@@ -207,6 +230,7 @@ func Run() {
 	mux.HandleFunc("POST /list", handlePostList)
 
 	mux.HandleFunc("PUT /list/{id}", handlPutList)
+	mux.HandleFunc("DELETE /list/{id}", handlDeleteList)
 
 	http.ListenAndServe(":8080", mux)
 }
