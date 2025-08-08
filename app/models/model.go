@@ -12,12 +12,14 @@ type User struct {
 	Balance      int64  `json:"balance"`
 }
 
-// {
-//     "id": 1,
-//     "first_name": "Иван",
-//     "middle_name": "Иванович",
-//     "last_name": "Иванов",
-//     "PasswordHash": "abc123",
-//     "email": "ivan@example.com",
-//     "balance": 1000
-// }
+/*
+{
+     "id": 1,
+     "first_name": "Иван",
+     "middle_name": "Иванович",
+     "last_name": "Иванов",
+     "PasswordHash": "abc123",
+     "email": "ivan@example.com",
+     "balance": 1000
+}
+*/
